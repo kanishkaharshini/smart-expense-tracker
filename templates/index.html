@@ -27,7 +27,9 @@
                 <thead>
                     <tr>
                         <th>Item</th>
-                        <th>Amount (₹)</th>
+                        <th>
+                              Amount (₹ {{ "{:,.0f}".format(daily_totals[date]) }})
+                        </th>
                         <th>Actions</th>
                     </tr>
                 </thead>

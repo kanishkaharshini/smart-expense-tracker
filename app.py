@@ -51,18 +51,24 @@ def index():
     ).fetchone()[0] or 0
 
     grouped_expenses = {}
+    daily_totals = {}   # 🔹 NEW
 
     for expense in expenses:
         date = expense["date"]
+
         if date not in grouped_expenses:
             grouped_expenses[date] = []
+            daily_totals[date] = 0   # 🔹 initialize total for that day
+
         grouped_expenses[date].append(expense)
+        daily_totals[date] += expense["amount"]  # 🔹 add amount
 
     conn.close()
 
     return render_template(
         "index.html",
         grouped_expenses=grouped_expenses,
+        daily_totals=daily_totals,   # 🔹 PASS TO TEMPLATE
         total=overall_total
     )
 
@@ -101,4 +107,3 @@ def delete_expense(id):
 
 if __name__ == "__main__":
     app.run()
-
